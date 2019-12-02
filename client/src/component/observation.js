@@ -13,6 +13,7 @@ import {
 } from "mdbreact";
 import moment from "moment";
 import ImageModalPage from "./imageModel";
+import NotesModal from "./notesModel";
 import MapModalPage from "./mapModal";
 import Loader from "./Loading";
 
@@ -23,15 +24,23 @@ class View extends Component {
       observations: [],
       imageModal: false,
       mapModal: false,
+      notesModal: false,
       picture: "",
       GPSLatitude: "",
       GPSLongitude: "",
-      species: ""
+      species: "",
+      information: ""
     };
   }
   componentWillReceiveProps(props) {
     this.setState({ observations: props.observations });
   }
+
+  notesModalToggle = () => {
+    this.setState({
+      notesModal: !this.state.notesModal
+    });
+  };
 
   imageModalToggle = () => {
     this.setState({
@@ -93,7 +102,7 @@ class View extends Component {
           </MDBDropdown>
         </div>
         <div className="row">
-          {observations && observations.length > 0 ? (
+          {observations.length !== 0 ? (
             observations.map((data, index) => (
               <MDBCol key={index} md="6" lg="4" sm="6" xl="3" className="my-2 ">
                 <MDBCard style={{ height: "100%" }}>
@@ -145,15 +154,17 @@ class View extends Component {
                           <td>:</td>
                           <td className="float-left">
                             {data.DateTimeOriginal
-                              ? moment(data.DateTimeOriginal).format("lll")
+                              ? moment.unix(data.DateTimeOriginal).format("lll")
                               : ""}
                           </td>
                         </tr>
                       </tbody>
                     </table>
-                    <p className="text-notes">{data.notes}</p>
+
+                    <div className="text-notes mb-4">{data.notes}</div>
+
                     <span
-                      className="mr-3"
+                      className={data.GPSLatitude ? "mr-3 " : "d-none"}
                       onClick={() => {
                         this.mapModalToggle();
                         this.setState({
@@ -185,6 +196,21 @@ class View extends Component {
                         alt="No pic"
                       ></img>
                     </span>
+
+                    <span
+                      className="ml-3"
+                      onClick={() => {
+                        this.notesModalToggle();
+                        this.setState({
+                          information: data.notes
+                        });
+                      }}
+                    >
+                      <img
+                        src="https://img.icons8.com/flat_round/40/000000/info.png"
+                        alt="No pic"
+                      ></img>
+                    </span>
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>
@@ -209,6 +235,11 @@ class View extends Component {
             GPSLongitude={this.state.GPSLongitude}
             toggle={this.mapModalToggle}
           ></MapModalPage>
+          <NotesModal
+            display={this.state.notesModal}
+            information={this.state.information}
+            toggle={this.notesModalToggle}
+          ></NotesModal>
         </div>
       </div>
     );

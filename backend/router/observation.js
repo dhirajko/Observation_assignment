@@ -27,6 +27,7 @@ router.post(
   async (req, res) => {
     const { error } = createObservationValidator(req.body);
     if (error) return res.status(401).send(error.details[0].message);
+    req.body.publishedDate = new Date();
     let observation = new Observation(req.body);
     await observation.save();
     return res.status(201).send(observation);

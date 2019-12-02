@@ -28,21 +28,28 @@
 }
 
 .text-notes {
+  text-align: start;
   font-size: 18px;
-  text-align: justify;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 td {
   margin: 2px !important;
   padding: 2px !important;
 }
+.data-notes {
+  font-size: 18px;
+  text-align: justify;
+}
 
 @media screen and (max-width: 767px) {
   img.icon {
     height: 30px;
   }
-  .btn{
+  .btn {
     padding: 5px 15px;
   }
 }
-

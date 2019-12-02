@@ -26,15 +26,12 @@ const writeImageFile = file => {
         uuidv4() +
         "-" +
         file.originalname,
-      file.buffer
-    ),
+      file.buffer,
       "binary",
-      function read(err, data) {
-        if (err) {
-          throw err;
-        }
-        content = data;
-      };
+      error => {
+        console.log(error);
+      }
+    );
   }
 };
 
