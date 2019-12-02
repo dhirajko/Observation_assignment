@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 
 const dbConnection = () => {
-  console.log(process.env.DB_URI);
-
   mongoose
     .connect(process.env.DB_URI, {
       keepAlive: true,

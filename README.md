@@ -92,7 +92,7 @@ export const API_URL = "https://cgi-assignment.herokuapp.com/";
 
 ```
 
-The complete installation video. [click](https://cgi-assignment.herokuapp.com/)
+The complete installation video. [click](https://www.youtube.com/watch?v=MTCzWxc7-bA)
 
 ## App Demo Link
 
