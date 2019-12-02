@@ -11,14 +11,7 @@ export class AdditionFormContainer extends Component {
     formData.append("rarity", payload.rarity);
     formData.append("notes", payload.notes);
     formData.append("picture", payload.picture);
-
-    // return axios
-    //   .post("http://localhost:5000/api/observation", formData, {
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     }
-    //   })
-
+  
     return store("api/observation", formData)
       .then(response => {
         notification("success", "added successfully");
